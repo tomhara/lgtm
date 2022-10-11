@@ -14,14 +14,14 @@ jobs:
       key: deps-{{ checksum "poetry.lock" }}
       paths: 
        - "~/.local"
-test:
- docker:
-  - image: circleci/python:3.8.1
- steps:
-  - checkout
-  - restore_cache:
-      key: deps-{{ checksum "poetry.lock" }}
-  - run:
+ test:
+  docker:
+   - image: circleci/python:3.8.1
+  steps:
+   - checkout
+   - restore_cache:
+       key: deps-{{ checksum "poetry.lock" }}
+   - run:
       command: |
         python3 -m unittest -v
 workflows:
