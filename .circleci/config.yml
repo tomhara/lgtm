@@ -9,7 +9,6 @@ jobs:
       key: deps-{{ checksum "poetry.lock" }}
    - run:
       command: |
-        poetry config virtualenvs.path /home/circleci/project/
         poetry install
    - save_cache:
       key: deps-{{ checksum "poetry.lock" }}
