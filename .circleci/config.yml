@@ -9,11 +9,12 @@ jobs:
       key: deps-{{ checksum "poetry.lock" }}
    - run:
       command: |
-       poetry shell
+        poetry config virtualenvs.path /home/circleci/project/
+        poetry install
    - save_cache:
       key: deps-{{ checksum "poetry.lock" }}
       paths: 
-       - "~/.local"
+       - .
  test:
   docker:
    - image: circleci/python:3.8.1
@@ -23,7 +24,7 @@ jobs:
        key: deps-{{ checksum "poetry.lock" }}
    - run:
       command: |
-        python3 -m unittest -v
+        poetry run python3 -m unittest -v
 workflows:
  version: 2
  all:
