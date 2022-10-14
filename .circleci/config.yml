@@ -1,6 +1,6 @@
 version: 2
 jobs:
- setup_dependencies:
+ build:
   docker:
    - image: circleci/python:3.8.1
   steps:
@@ -15,21 +15,6 @@ jobs:
       key: deps-{{ checksum "poetry.lock" }}
       paths: 
        - .
- test:
-  docker:
-   - image: circleci/python:3.8.1
-  steps:
-   - checkout
-   - restore_cache:
-       key: deps-{{ checksum "poetry.lock" }}
    - run:
       command: |
         poetry run python3 -m unittest -v
-workflows:
- version: 2
- all:
-   jobs:
-     - setup_dependencies
-     - test:
-         requires:
-          - setup_dependencies
